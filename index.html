@@ -38,18 +38,13 @@ min-height:100vh;
 /* CINEMATIC BACKGROUND */
 /* CINEMATIC BACKGROUND */
 .bg{
-position:fixed;
-inset:0;
-background:
-linear-gradient(rgba(0,0,0,.30),rgba(0,0,0,.30)),
-url("background.png");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-background-attachment:fixed;
-z-index:-3;
+    position:fixed;
+    inset:0;
+    background:url("background.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
 }
-
 /* animated glow layer */
 .bg::before{
 content:"";
