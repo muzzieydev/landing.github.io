@@ -29,32 +29,43 @@ scroll-behavior:smooth;
 
 body{
 font-family:Inter,sans-serif;
-background:var(--bg);
-color:var(--text);
+background:#050505;
+color:#fff;
 overflow-x:hidden;
+min-height:100vh;
 }
 
+/* CINEMATIC BACKGROUND */
 /* CINEMATIC BACKGROUND */
 .bg{
 position:fixed;
 inset:0;
 background:
+linear-gradient(rgba(0,0,0,.72),rgba(0,0,0,.82)),
+url("logo.png");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+z-index:-3;
+}
+
+/* animated glow layer */
+.bg::before{
+content:"";
+position:absolute;
+inset:0;
+background:
 radial-gradient(circle at 20% 20%,rgba(0,255,136,.12),transparent 30%),
 radial-gradient(circle at 80% 40%,rgba(0,195,255,.12),transparent 30%),
-radial-gradient(circle at 50% 80%,rgba(255,255,255,.04),transparent 40%);
+radial-gradient(circle at 50% 80%,rgba(255,255,255,.05),transparent 40%);
 filter:blur(90px);
 animation:float 12s ease-in-out infinite alternate;
-z-index:-1;
+z-index:-2;
 }
-
-@keyframes float{
-from{transform:scale(1) translate(0,0)}
-to{transform:scale(1.08) translate(40px,-40px)}
-}
-
 /* HERO */
 .hero{
-height:100vh;
+min-height:100svh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -62,16 +73,6 @@ align-items:center;
 text-align:center;
 padding:20px;
 position:relative;
-}
-
-.avatar{
-width:120px;
-height:120px;
-border-radius:50%;
-border:2px solid var(--accent);
-box-shadow:0 0 30px rgba(0,255,136,0.25);
-margin-bottom:20px;
-animation:fadeUp 1s ease;
 }
 
 .hero h1{
@@ -98,37 +99,50 @@ from{opacity:0;transform:translateY(20px)}
 to{opacity:1;transform:translateY(0)}
 }
 
-/* CTA */
-.cta{
-display:flex;
-gap:12px;
-margin-top:25px;
-flex-wrap:wrap;
-justify-content:center;
-animation:fadeUp 1.8s ease;
+/* SCROLL INDICATOR */
+
+.scroll-indicator{
+    position:absolute;
+    bottom:35px;
+    left:50%;
+    transform:translateX(-50%);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+
+    cursor:pointer;
+    user-select:none;
+
+    color:var(--muted);
+
+    animation:fadeUp 2s ease,
+              bounce 2s infinite;
 }
 
-.btn{
-padding:12px 18px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.1);
-background:var(--card);
-color:#fff;
-cursor:pointer;
-transition:0.25s ease;
+.scroll-indicator span{
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
 }
 
-.btn:hover{
-transform:translateY(-4px);
-background:var(--card2);
+.scroll-indicator i{
+    font-size:18px;
+    color:var(--accent);
 }
 
-.btn.primary{
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-color:#000;
-font-weight:600;
-}
+@keyframes bounce{
 
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(10px);
+    }
+
+}
 /* SECTIONS */
 .section{
 max-width:900px;
@@ -246,9 +260,103 @@ box-shadow:0 0 25px rgba(0,255,136,0.3);
 }
 
 /* RESPONSIVE */
-@media(max-width:700px){
-.grid{grid-template-columns:1fr}
-.nav-dots{display:none}
+@media (max-width:900px){
+
+.hero{
+padding:30px 20px;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.video video{
+    height:220px;
+}
+
+.nav-dots{
+display:none;
+}
+
+  .cta{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+ .content-btn{
+        grid-column:1 / -1;
+    }
+
+.avatar{
+width:100px;
+height:100px;
+}
+
+}
+.card h3{
+  margin-top:8px;
+  font-size:16px;
+}
+
+.card{
+  transition:0.35s ease;
+}
+
+.card:hover i{
+  transform:scale(1.1);
+}
+.video img{
+    width:100%;
+    border-radius:12px;
+    display:block;
+}
+
+.watch-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+    padding:12px 20px;
+    background:#E1306C;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.watch-btn:hover{
+    transform:translateY(-3px);
+}
+
+.watch-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+    padding:12px 20px;
+    background:#7ce473;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.watch-btn:hover{
+    transform:translateY(-3px);
+}
+.video video{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;
 }
 </style>
 </head>
@@ -259,18 +367,19 @@ box-shadow:0 0 25px rgba(0,255,136,0.3);
 
 <!-- HERO -->
 <section class="hero" id="hero">
-<img src="profile.jpg" class="avatar" onerror="this.style.display='none'">
 
 <h1>Muzziey Toxin</h1>
-<p>Full Stack Developer • Creator • Builder</p>
+<p>Full Stack Developer • Entrepreneur • Artist</p>
 
-<div class="code">&lt;engineering digital experiences /&gt;</div>
+<div class="code">&lt;building systems + only work with selected/&gt;</div>
 
-<div class="cta">
-<button class="btn primary" onclick="openLink('https://your-website.com')">Visit Website</button>
-<button class="btn" onclick="openLink('https://your-store.com')">Open Store</button>
-<button class="btn" onclick="scrollToSection('videos')">Watch Content</button>
+<div class="code">&lt; digital experiences /&gt;</div>
+<div class="scroll-indicator" onclick="scrollToSection('links')">
+    <span>Scroll Down</span>
+    <i class="fas fa-chevron-down"></i>
 </div>
+
+
 </section>
 
 <!-- LINKS -->
@@ -279,35 +388,49 @@ box-shadow:0 0 25px rgba(0,255,136,0.3);
 
 <div class="grid">
 
-<div class="card" onclick="openLink('https://muzziey.github.io/')">
+<div class="card" onclick="openLink('MuzzieyStudio/index.html')">
 <i class="fas fa-globe"></i>
 <h3>Website</h3>
 <div class="muted">Projects • Services • Portfolio</div>
 </div>
 
-<div class="card" onclick="openLink('https://your-store.com')">
+<div class="card" onclick="openLink('store.html')">
 <i class="fas fa-store"></i>
 <h3>Store</h3>
 <div class="muted">Products • Drops • Digital Goods</div>
 </div>
 
 </div>
+
 </section>
 
-<!-- VIDEO -->
 <section class="section" id="videos">
 <h2>// featured_content</h2>
 
 <div class="video">
-<iframe src="https:"
-allowfullscreen></iframe>
-</div>
-</section>
 
+<video controls autoplay muted loop playsinline>
+    <source src="skate.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<a href="https://www.instagram.com/p/DCAJjR6uxXk/?hl=en"
+target="_blank"
+class="watch-btn">
+
+<i class="fa-brands fa-instagram"></i>
+Watch on Instagram
+
+</a>
+
+</div>
+
+</section>
 <!-- FOOTER -->
 <section class="section" id="footer">
 <h2 style="text-align:center;color:var(--muted)">
-Built by Muzziey • Cinematic Developer Brand Hub
+Built by Muzziey • ....
+
 </h2>
 </section>
 
@@ -319,10 +442,7 @@ Built by Muzziey • Cinematic Developer Brand Hub
 <div class="dot" onclick="scrollToSection('footer')"></div>
 </div>
 
-<!-- FLOAT -->
-<div class="float" onclick="scrollToSection('hero')">
-<i class="fas fa-arrow-up"></i>
-</div>
+
 <script>
 // =========================
 // CINEMATIC SYSTEM ENGINE
@@ -361,15 +481,15 @@ window.addEventListener("scroll", ()=>{
   dots[index]?.classList.add("active");
 
 });
+function openLink(url) {
+    window.open(url, "_blank");
+}
 
-// HERO PARALLAX MICRO EFFECT
-document.addEventListener("mousemove",(e)=>{
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-
-  document.querySelector(".hero").style.transform =
-    `translate(${x}px, ${y}px)`;
-});
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+    });
+}
 </script>
 
 </body>
