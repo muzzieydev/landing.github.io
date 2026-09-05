@@ -35,6 +35,32 @@ body{
     min-height:100vh;
     position:relative;
 }
+    .website-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:16px;
+    padding:11px 18px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#000;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    border-radius:10px;
+    transition:0.3s ease;
+}
+
+.website-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(0,255,136,0.25);
+}
+
+.website-btn i{
+    color:#000;
+    font-size:13px;
+    margin:0;
+}
 /* CINEMATIC BACKGROUND */
 /* CINEMATIC BACKGROUND */
 .bg{
@@ -388,10 +414,18 @@ height:100px;
 
 <div class="grid">
 
-<div class="card" onclick="openLink('https://muzzieydev.github.io/muzzieydev.io/')">
+<div class="card">
     <i class="fas fa-globe"></i>
     <h3>Website</h3>
     <div class="muted">Projects • Services • Portfolio</div>
+
+    <a href="https://muzzieydev.github.io/muzzieydev.io/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="website-btn">
+        <i class="fas fa-arrow-up-right-from-square"></i>
+        Visit Website
+    </a>
 </div>
     
 <div class="card" onclick="openLink('store.html')">
